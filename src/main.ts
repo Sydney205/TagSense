@@ -1,33 +1,37 @@
 import plugin from "../plugin.json";
+import { AcodeAdapter } from "./intellisense/acode-adapter";
 
-class AcodePlugin {
-	baseUrl = "";
+class TagSensePlugin {
+  baseUrl = "";
+  private adapter?: AcodeAdapter;
 
-	async init(
-		_page: Acode.WCPage,
-		_cacheFile: Acode.FileSystem,
-		_cacheFileUrl: string,
-	): Promise<void> {
-		// plugin initialisation
-	}
+  async init(
+    _page: Acode.WCPage,
+    _cacheFile: Acode.FileSystem,
+    _cacheFileUrl: string,
+  ): Promise<void> {
+    const editor = (window as Window & { editor?: Ace.Editor }).editor;
+    if (editor) this.adapter = new AcodeAdapter(editor);
+  }
 
-	async destroy(): Promise<void> {
-		// plugin clean up
-	}
+  async destroy(): Promise<void> {
+    this.adapter?.destroy();
+    this.adapter = undefined;
+  }
 }
 
 if (window.acode) {
-	const acodePlugin = new AcodePlugin();
+  const tagSensePlugin = new TagSensePlugin();
 
-	acode.setPluginInit(
-		plugin.id,
-		async (baseUrl, $page, { cacheFileUrl, cacheFile }) => {
-			acodePlugin.baseUrl = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
-			await acodePlugin.init($page, cacheFile, cacheFileUrl);
-		},
-	);
+  acode.setPluginInit(
+    plugin.id,
+    async (baseUrl, $page, { cacheFileUrl, cacheFile }) => {
+      tagSensePlugin.baseUrl = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
+      await tagSensePlugin.init($page, cacheFile, cacheFileUrl);
+    },
+  );
 
-	acode.setPluginUnmount(plugin.id, () => {
-		void acodePlugin.destroy();
-	});
+  acode.setPluginUnmount(plugin.id, () => {
+    void tagSensePlugin.destroy();
+  });
 }
