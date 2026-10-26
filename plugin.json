@@ -4,6 +4,7 @@
   "name": "TagSense",
   "main": "dist/main.js",
   "version": "1.0.0",
+  "description": "Universal tag intelligence and autocomplete for Acode.",
   "readme": "readme.md",
   "changelogs": "changelogs.md",
   "repository": "https://github.com/Acode-Foundation/AcodeTSTemplate.git",
