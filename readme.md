@@ -1,116 +1,89 @@
 <div align="center">
-  <img src="icon.png" width="120" height="120" alt="TagSense Logo">
+  <img src="icon.png" width="120" height="120" alt="TagSense logo">
   <h1>TagSense</h1>
-  <p><b>Mobile-first tag intelligence for Acode.</b></p>
+  <p><b>Mobile-first tag completion for Acode.</b></p>
 </div>
 
-TagSense is an Acode plugin for fast, context-aware markup completion on mobile devices. It helps developers write cleaner HTML, JSX, SVG, XML, and Vue templates with intelligent tag suggestions, matching close-tag insertion, and attribute/value completion without interrupting the flow of typing.
+TagSense is a plugin for [Acode](https://acode.app), a code editor for Android. It completes markup as you type on a mobile keyboard. TagSense suggests tag names, inserts matching closing tags, and suggests attributes and attribute values.
 
----
-
-## Current project status
-
-TagSense is now past the initial prototype stage and has a working core feature set with automated validation. The plugin covers the primary mobile editing workflows expected from a markup helper:
-
-- tag-name suggestions
-- closing-tag insertion
-- void tag protection
-- attribute name suggestions
-- attribute value completion
-- multi-language support for common markup profiles
-
-This makes it suitable for active use in the core Acode editing workflow, while still leaving room for more advanced framework-specific completion.
-
----
+This is the initial release. It provides the core completion features for HTML, JSX, SVG, XML, and Vue templates.
 
 ## Features
 
-- Smart tag completion for opening and closing tags
-- Automatic close-tag insertion with duplicate protection
-- Void tag awareness for tags like `<img>`, `<br>`, `<input>`, and `<meta>`
-- Attribute suggestions for global and tag-specific HTML attributes
-- Value suggestions for common attributes like `type`, `rel`, `target`, and `loading`
-- Support for multiple markup environments:
-  - HTML / HTM
-  - JSX / TSX
-  - SVG
-  - XML / XHTML
-  - Vue templates
-- Case-aware behavior for languages that require it, such as XML
-- Lightweight design tuned for mobile keyboard input and editor responsiveness
+TagSense provides the following features:
 
----
+* **Tag suggestions:** Suggests valid tag names when you type `<`.
+* **Closing-tag insertion:** Inserts the matching closing tag and places the cursor between the tags. TagSense doesn't insert a duplicate closing tag if one already exists.
+* **Void tag handling:** Doesn't insert closing tags for void elements such as `<img>`, `<br>`, `<input>`, and `<meta>`.
+* **Attribute suggestions:** Suggests global attributes and tag-specific attributes.
+* **Value suggestions:** Suggests values for common attributes such as `type`, `rel`, `target`, and `loading`.
+* **Case-aware matching:** Preserves letter case in languages that require it, such as XML.
 
 ## Supported languages
 
-TagSense currently includes language profiles for:
+TagSense includes a profile for each of the following languages:
 
-- HTML
-- JSX and TSX
-- SVG
-- XML
-- Vue
+* HTML
+* JSX and TSX
+* SVG
+* XML and XHTML
+* Vue templates
 
-The language registry is designed to be extensible, so more syntax-specific completions can be added without changing the core engine.
+Each profile defines the tags, attributes, and values that TagSense suggests for that language. To add a language, add a profile to the language registry. You don't need to change the core engine.
 
----
+## Install
 
-## Installation
-
-### From source
+Install TagSense from source. You need [Node.js](https://nodejs.org) and npm on your development machine.
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/Sydney205/TagSense.git
    cd TagSense
    ```
 
-2. Install dependencies:
+2. Install the dependencies:
+
    ```bash
    npm install
    ```
 
 3. Build the plugin:
+
    ```bash
    npm run build
    ```
 
-4. The build creates a packaged plugin archive (`plugin.zip`) in the project root.
+   The build creates a `plugin.zip` file in the project root.
 
-5. Open Acode on your Android device, go to:
-   - Settings
-   - Plugins
-   - Install Plugin
+4. Copy `plugin.zip` to your Android device.
+5. In Acode, go to **Settings > Plugins > Install Plugin**.
+6. Select `plugin.zip`.
+7. Enable the plugin.
 
-6. Select the generated `plugin.zip` and enable it.
+## Use TagSense
 
----
+### Get tag suggestions
 
-## Usage
+Type `<`. TagSense shows tag names that are valid for the current language.
 
-### Tag suggestions
+### Insert a closing tag
 
-Type `<` and TagSense will suggest valid tag names based on the current language context.
-
-### Close-tag insertion
-
-Typing a complete tag like:
+Type a complete opening tag:
 
 ```html
 <section>
 ```
 
-can automatically insert the closing tag:
+TagSense inserts the closing tag and places the cursor between the tags:
 
 ```html
-<section></section>
+<section>|</section>
 ```
 
-with the cursor placed inside the element, ready for content.
+### Type void tags
 
-### Void tag protection
-
-Self-closing or void elements are protected from accidental closing-tag duplication:
+TagSense doesn't insert a closing tag for void elements:
 
 ```html
 <img>
@@ -119,57 +92,46 @@ Self-closing or void elements are protected from accidental closing-tag duplicat
 <meta>
 ```
 
-### Attribute completion
+### Complete attributes and values
 
-After typing a tag name, TagSense can suggest valid attributes such as:
+After you type a tag name, TagSense suggests attributes for that tag. After you type an attribute name, TagSense suggests values when it has them:
 
 ```html
 <a href="" target="_blank">
 <img src="" alt="">
 ```
 
-and provide value suggestions where appropriate.
+## Develop
 
----
+Run the following scripts from the project root:
 
-## Development
+| Command             | Description                      |
+| ------------------- | -------------------------------- |
+| `npm test`          | Runs the automated test suite.   |
+| `npm run typecheck` | Checks types.                    |
+| `npm run build`     | Builds `plugin.zip`.             |
 
-Project scripts:
+The test suite covers the following behavior:
 
-```bash
-npm test
-npm run build
-npm run typecheck
-```
+* Tag suggestions
+* Attribute parsing
+* Closing-tag insertion
+* Void tag handling
+* Language-specific completions
 
-The project includes a small automated test suite covering:
-- tag suggestions
-- attribute parsing
-- close-tag insertion
-- void-tag behavior
-- language-specific completions
+## Planned work
 
----
+Future releases might include the following improvements:
 
-## Roadmap
+* Value suggestions for more attributes.
+* Framework-specific suggestions.
+* Refinements to mobile typing and editor interaction.
+* More language profiles and better handling of edge cases in parsing.
 
-Current focus areas are practical and grounded in the working feature set:
+## Contribute
 
-- expand value completion coverage for more common attributes
-- improve framework-specific suggestions
-- refine mobile UX and editor interaction behavior
-- continue extending language profiles and edge-case parsing
-
----
-
-## Contributing
-
-Contributions, issues, and pull requests are welcome. Please open an issue or submit a patch via the GitHub repository:
-
-https://github.com/Sydney205/TagSense
-
----
+To report a bug or request a feature, [open an issue](https://github.com/Sydney205/TagSense/issues). To contribute a change, submit a pull request to the [GitHub repository](https://github.com/Sydney205/TagSense).
 
 ## License
 
-MIT License © Sydney205
+TagSense is available under the MIT License. Copyright © Sydney205.
