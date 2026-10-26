@@ -17,4 +17,4 @@ jobs:
       - uses: Acode-Foundation/publish-plugin@v1
         with:
           api-key: ${{ secrets.ACODE_API_KEY }}
-          create: true
+          create-if-missing: true
