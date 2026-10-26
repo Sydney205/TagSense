@@ -1,8 +1,8 @@
 {
   "$schema": "https://acode.app/schema/plugin/v0.1.0.json",
-  "id": "acode.plugin",
-  "name": "Plugin",
-  "main": "main.js",
+  "id": "tagsense",
+  "name": "TagSense",
+  "main": "dist/main.js",
   "version": "1.0.0",
   "readme": "readme.md",
   "changelogs": "changelogs.md",
