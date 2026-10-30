@@ -7,7 +7,7 @@
   "description": "Universal tag intelligence and autocomplete for Acode.",
   "readme": "readme.md",
   "changelogs": "changelogs.md",
-  "repository": "https://github.com/Acode-Foundation/AcodeTSTemplate.git",
+  "repository": "https://github.com/Sydney205/TagSense.git",
   "icon": "icon.png",
   "files": [],
   "minVersionCode": 290,
@@ -16,8 +16,8 @@
   "price": 0,
   "permissions": [],
   "author": {
-    "name": "",
+    "name": "Sydney205",
     "email": "",
-    "github": ""
+    "github": "Sydney205"
   }
 }
